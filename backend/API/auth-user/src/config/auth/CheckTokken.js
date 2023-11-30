@@ -15,7 +15,7 @@ export default async (req, res, next) => {
                 'Access token was not informed or is wrong'
                 )
             }
-            
+        
         const tokken = authorization.split(" ")[1]
         // token = authorization.split(" ")[1];
         // console.info(token)
