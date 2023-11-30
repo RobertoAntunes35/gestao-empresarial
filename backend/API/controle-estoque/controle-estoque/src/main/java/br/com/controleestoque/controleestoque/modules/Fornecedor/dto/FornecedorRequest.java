@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class FornecedorRequest {
     private String description;
-    private Integer codigoFornecedor;
+    private Integer codigo;
 
 }

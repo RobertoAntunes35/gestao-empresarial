@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class FornecedorResponse {
     private Integer id;
-    private String description;
+    private String descricao;
     private Integer codigo;
 
     public static FornecedorResponse of(FornecedorModel fornecedor) {

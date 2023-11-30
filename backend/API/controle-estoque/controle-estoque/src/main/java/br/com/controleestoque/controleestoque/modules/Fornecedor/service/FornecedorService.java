@@ -2,7 +2,7 @@ package br.com.controleestoque.controleestoque.modules.Fornecedor.service;
 
 import org.springframework.stereotype.Service;
 import static org.springframework.util.ObjectUtils.isEmpty;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import br.com.controleestoque.controleestoque.config.Exception.ValidationException;
 import br.com.controleestoque.controleestoque.modules.Fornecedor.dto.FornecedorResponse;
 import br.com.controleestoque.controleestoque.modules.Fornecedor.model.FornecedorModel;
@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class FornecedorService {
 
+    @Autowired
     private FornecedorRepository fornecedorRepository;
 
     public List<FornecedorResponse> findByDescricao(String descricao) {
