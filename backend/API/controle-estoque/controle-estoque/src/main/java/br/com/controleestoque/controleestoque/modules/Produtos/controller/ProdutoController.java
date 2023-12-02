@@ -26,6 +26,10 @@ public class ProdutoController {
         return produtoService.findByIdResponse(id);
     }
     
+    @GetMapping
+    public List<ProdutoResponse> findAll() {
+        return produtoService.findAll();
+    }
     @GetMapping("/tipo/{tipo}")
     public List<ProdutoResponse> findByTipo(@PathVariable String tipo) {
         return produtoService.findByTipo(tipo);
@@ -39,7 +43,7 @@ public class ProdutoController {
     public List<ProdutoResponse> findByGrupo(@PathVariable String grupo) {
         return produtoService.findByGrupo(grupo);
     }
-
+    
     @PostMapping
     public ProdutoResponse save(@RequestBody ProdutoRequest request) {
         return produtoService.save(request);

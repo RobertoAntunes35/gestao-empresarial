@@ -29,6 +29,8 @@ public class ProdutoResponse {
     private Double valor_venda; 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime updated_at; 
+    private Boolean controle; 
+    private String ean; 
     @JsonProperty("fornecedor")
     private FornecedorResponse fornecedor;
 
@@ -46,6 +48,8 @@ public class ProdutoResponse {
                     .valor_custo(request.getValor_custo())
                     .valor_venda(request.getValor_venda())
                     .updated_at(request.getUpdated_at())
+                    .controle(request.getControle())
+                    .ean(request.getEan())
                     .fornecedor(FornecedorResponse.of(request.getFornecedor()))
                     .build();
                 }

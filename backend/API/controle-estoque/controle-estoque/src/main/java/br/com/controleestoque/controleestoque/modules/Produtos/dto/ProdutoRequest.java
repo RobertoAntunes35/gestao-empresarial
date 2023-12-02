@@ -19,4 +19,6 @@ public class ProdutoRequest {
     @JsonProperty("updated_at")
     private LocalDateTime updated_at; 
     private Integer fornecedorId; 
+    private Boolean controle; 
+    private String ean; 
 }

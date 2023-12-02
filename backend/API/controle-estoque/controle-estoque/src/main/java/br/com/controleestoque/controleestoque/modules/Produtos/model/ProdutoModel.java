@@ -53,17 +53,24 @@ public class ProdutoModel {
     @Column(name = "GRUPO", nullable = false)
     private String grupo; 
 
-    @ManyToOne
-    @JoinColumn(name = "FK_FORNECEDOR", nullable = false)
-    private FornecedorModel fornecedor; 
-
+    
     @Column(name = "UPDATED_AT")
     private LocalDateTime updated_at;
-
+    
     @PrePersist
     public void PrePersist() {
         updated_at = LocalDateTime.now();
     }
+    
+    @Column(name = "CONTROLE")
+    private Boolean controle; 
+
+    @Column(name = "EAN")
+    private String ean; 
+    
+    @ManyToOne
+    @JoinColumn(name = "FK_FORNECEDOR", nullable = false)
+    private FornecedorModel fornecedor; 
 
     public static ProdutoModel of(ProdutoRequest request, FornecedorModel fornecedor) {
         return ProdutoModel
@@ -78,6 +85,8 @@ public class ProdutoModel {
             .valor_custo(request.getValor_custo())
             .valor_venda(request.getValor_venda())
             .updated_at(request.getUpdated_at())
+            .controle(request.getControle())
+            .ean(request.getEan())
             .fornecedor(fornecedor)
             .build();
     }

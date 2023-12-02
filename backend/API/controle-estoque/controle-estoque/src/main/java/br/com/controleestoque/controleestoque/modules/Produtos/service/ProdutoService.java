@@ -25,6 +25,7 @@ public class ProdutoService {
     @Autowired
     FornecedorService fornecedorService;
 
+    // Getters Padroes JPA
     public ProdutoModel findById(Integer id) {
         confirmDataInteger(id);
         return produtoRepository
@@ -32,17 +33,23 @@ public class ProdutoService {
                 .orElseThrow(() -> new ValidationException("O id nao foi encontrado."));
     }
 
-    public ProdutoResponse findByIdResponse(Integer id) {
-        return ProdutoResponse.of(findById(id));
+    public List<ProdutoResponse> findAll() {
+        return produtoRepository
+                    .findAll()
+                    .stream()
+                    .map(ProdutoResponse::of)
+                    .collect(Collectors.toList());
     }
-
     public List<ProdutoResponse> findByDescricao(String descricao) {
         confirmDataString(descricao);
         return produtoRepository
-                .findByDescricaoIgnoreCaseContaining(descricao)
-                .stream()
-                .map(ProdutoResponse::of)
-                .collect(Collectors.toList());
+        .findByDescricaoIgnoreCaseContaining(descricao)
+        .stream()
+        .map(ProdutoResponse::of)
+        .collect(Collectors.toList());
+    }
+    public ProdutoResponse findByIdResponse(Integer id) {
+        return ProdutoResponse.of(findById(id));
     }
 
     public List<ProdutoResponse> findByTipo(String tipo) {
