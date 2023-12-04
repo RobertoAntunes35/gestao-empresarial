@@ -72,9 +72,8 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-
     public ProdutoResponse save(ProdutoRequest request) {
-        validateProduto(request);
+        validateProductRequest(request);
         var fornecedor = fornecedorService.findById(request.getFornecedorId());
         var produto = produtoRepository.save(ProdutoModel.of(request, fornecedor));
         return ProdutoResponse.of(produto);
@@ -98,7 +97,7 @@ public class ProdutoService {
         }
     }
 
-    public boolean validateProduto(ProdutoRequest request) {
+    public boolean validateProductRequest(ProdutoRequest request) {
         for (Field field : request.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {

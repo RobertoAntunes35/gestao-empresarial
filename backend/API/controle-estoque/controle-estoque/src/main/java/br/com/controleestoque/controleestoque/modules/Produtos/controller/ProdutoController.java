@@ -48,5 +48,4 @@ public class ProdutoController {
     public ProdutoResponse save(@RequestBody ProdutoRequest request) {
         return produtoService.save(request);
     }
-    
 }

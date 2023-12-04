@@ -53,7 +53,6 @@ public class ProdutoModel {
     @Column(name = "GRUPO", nullable = false)
     private String grupo; 
 
-    
     @Column(name = "UPDATED_AT")
     private LocalDateTime updated_at;
     

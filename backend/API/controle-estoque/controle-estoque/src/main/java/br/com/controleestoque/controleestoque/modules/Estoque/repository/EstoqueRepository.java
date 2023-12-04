@@ -1,5 +1,9 @@
 package br.com.controleestoque.controleestoque.modules.Estoque.repository;
 
-public interface EstoqueRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.controleestoque.controleestoque.modules.Estoque.model.EstoqueModel;;
+
+public interface EstoqueRepository extends JpaRepository<EstoqueModel, Integer> {
+
 }
