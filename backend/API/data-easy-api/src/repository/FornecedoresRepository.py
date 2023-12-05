@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np 
 import sys 
 import os
-
+import json 
 sys.path.append('C:/Users/balca/OneDrive/Desktop/Gestão/Aplicativo/backend/API/data-easy-api/src/dto')
 
 from FornecedoresRequest import FornecedoresRequest
@@ -12,7 +12,7 @@ from FornecedoresRequest import FornecedoresRequest
 class FornecedoresRepository:
     def __init__(self):
         try:
-            self.data_frame = pd.read_excel('../data/D08_Fornecedor.xls')
+            self.data_frame = pd.read_excel('src/data/D08_Fornecedor.xls')
         except Exception as error:
             print(error)
                     
@@ -34,7 +34,7 @@ class FornecedoresRepository:
         for index, row in data_frame.iterrows():
             # fornecedor = FornecedoresRequest(row.D01_Cod_Cliente, row.D01_Nome)
             lista_dados.append(FornecedoresRequest(row.D01_Cod_Cliente, row.D01_Nome))
-        
+        print(lista_dados)
         return lista_dados
 
 if __name__ == '__main__':
