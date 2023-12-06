@@ -14,8 +14,6 @@ class ProdutoRequest(NamedTuple):
     controler: bool
     ean: str
 
-
-
 '''
 private Integer codigo_primario; 
     private Integer codigo_referencia; 

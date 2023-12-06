@@ -8,6 +8,7 @@ import * as httpStatus from '../constants/httpStatus.js'
 export default async (req, res, next) => {
 
     try {
+        
         const {authorization} = req.headers;
         if (!authorization) {
             throw new AuthException(

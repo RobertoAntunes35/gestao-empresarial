@@ -1,7 +1,6 @@
 import sys 
 
-sys.path.append('C:/Users/balca/OneDrive/Desktop/Gestão/Aplicativo/backend/API/data-easy-api/src/repository')
-
+sys.path.append('C:/Users/balca/OneDrive/Desktop/Gestão/Aplicativo/backend/API/data-easy-api/module/fornecedores/repository')
 
 from FornecedoresRepository import FornecedoresRepository
 
@@ -15,4 +14,3 @@ class FornecedoresController:
 if __name__ == '__main__':
     fornecedorRepository = FornecedoresRepository()
     controlle = FornecedoresController(fornecedorRepository)
-    print(controlle.get_data())

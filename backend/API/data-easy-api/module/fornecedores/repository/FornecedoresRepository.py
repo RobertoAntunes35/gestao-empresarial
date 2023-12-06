@@ -3,11 +3,9 @@ import numpy as np
 import sys 
 import os
 import json 
-sys.path.append('C:/Users/balca/OneDrive/Desktop/Gestão/Aplicativo/backend/API/data-easy-api/src/dto')
+sys.path.append('C:/Users/balca/OneDrive/Desktop/Gestão/Aplicativo/backend/API/data-easy-api/module/fornecedores/dto')
 
 from FornecedoresRequest import FornecedoresRequest
-
-# from dto.FornecedoresRequest import FornecedoresRequest
 
 class FornecedoresRepository:
     def __init__(self):
