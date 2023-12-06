@@ -2,7 +2,7 @@
 from src.repository.FornecedoresRepository import FornecedoresRepository
 from src.controller.FornecedoresController import FornecedoresController
 
-from flask import Flask 
+from flask import Flask, jsonify
 from flask_restful import Resource, Api
 
 import json
@@ -15,9 +15,9 @@ controllerFornecedor = FornecedoresController(repositoryFornecedor)
 
 class HelloWorld(Resource):
     def get(self):
-        return controllerFornecedor.get_data()
+        return jsonify(controllerFornecedor.get_data())
 
-api.add_resource(HelloWorld, '/')
+api.add_resource(HelloWorld, '/api/fornecedores')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

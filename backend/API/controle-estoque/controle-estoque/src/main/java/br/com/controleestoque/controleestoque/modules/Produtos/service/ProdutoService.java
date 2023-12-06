@@ -74,7 +74,7 @@ public class ProdutoService {
 
     public ProdutoResponse save(ProdutoRequest request) {
         validateProductRequest(request);
-        var fornecedor = fornecedorService.findById(request.getFornecedorId());
+        var fornecedor = fornecedorService.findByCodigoFornecedor(request.getFornecedorCodigo());
         var produto = produtoRepository.save(ProdutoModel.of(request, fornecedor));
         return ProdutoResponse.of(produto);
     }

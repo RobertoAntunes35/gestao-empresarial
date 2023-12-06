@@ -25,6 +25,10 @@ public class FornecedorController {
     public FornecedorResponse findById(@PathVariable Integer id) {
         return fornecedorService.findByIdResponse(id);
     }
+    @GetMapping("/codigo_fornecedor/{codigo_fornecedor}")
+    public FornecedorResponse findByCodigoFornecedorResponse(@PathVariable Integer codigo_fornecedor) {
+        return fornecedorService.findByCodigoFornecedorResponse(codigo_fornecedor);
+    }
 
     @GetMapping
     public List<FornecedorResponse> findAll() {

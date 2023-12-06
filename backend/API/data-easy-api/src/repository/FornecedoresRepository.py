@@ -22,7 +22,7 @@ class FornecedoresRepository:
             
             columns_to_drop = [value for value in self.data_frame.columns if value not in ['D01_Cod_Cliente', 'D01_Nome']]
             
-            new_data_frame = self.data_frame.drop(columns_to_drop, axis=1)
+            new_data_frame = self.data_frame.drop(columns_to_drop, axis=1).dropna()
         except Exception as error:
             print(error)
             return error
@@ -30,12 +30,16 @@ class FornecedoresRepository:
     
     def convertDataFrameToFornecedoresResponse(self):
         data_frame = self.filterAndConvertDataFrame()
-        lista_dados = []
-        for index, row in data_frame.iterrows():
-            # fornecedor = FornecedoresRequest(row.D01_Cod_Cliente, row.D01_Nome)
-            lista_dados.append(FornecedoresRequest(row.D01_Cod_Cliente, row.D01_Nome))
-        print(lista_dados)
-        return lista_dados
+        listaDados = []
+        for _, row in data_frame.iterrows():
+            fornecedorRequest = FornecedoresRequest(row.D01_Nome, row.D01_Cod_Cliente)
+            
+            fornecedor = {
+                'codigo':fornecedorRequest.codigo,
+                'descricao':fornecedorRequest.descricao,
+            }
+            listaDados.append(fornecedor)
+        return listaDados
 
 if __name__ == '__main__':
     pass 

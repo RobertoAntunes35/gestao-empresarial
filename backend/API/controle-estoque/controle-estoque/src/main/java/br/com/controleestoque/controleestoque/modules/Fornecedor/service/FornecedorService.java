@@ -38,7 +38,14 @@ public class FornecedorService {
     public FornecedorResponse findByIdResponse(Integer id){
         return FornecedorResponse.of(findById(id));
     }
+    
+    public FornecedorModel findByCodigoFornecedor(Integer codigo_fornecedor) {
+        return fornecedorRepository.findByCodigoFornecedor(codigo_fornecedor);
+    }
 
+    public FornecedorResponse findByCodigoFornecedorResponse(Integer codigo_fornecedor) {
+        return FornecedorResponse.of(findByCodigoFornecedor(codigo_fornecedor));
+    }
     public List<FornecedorResponse> findAll() {
         return fornecedorRepository
                 .findAll()
