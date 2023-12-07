@@ -10,7 +10,7 @@ from FornecedoresRequest import FornecedoresRequest
 class FornecedoresRepository:
     def __init__(self):
         try:
-            self.data_frame = pd.read_excel('src/data/D08_Fornecedor.xls')
+            self.data_frame = pd.read_excel('module/data/D08_Fornecedor.xls')
         except Exception as error:
             print(error)
                     
@@ -28,9 +28,12 @@ class FornecedoresRepository:
     
     def convertDataFrameToFornecedoresResponse(self):
         data_frame = self.filterAndConvertDataFrame()
+        print(data_frame)
         listaDados = []
-        for _, row in data_frame.iterrows():
-            fornecedorRequest = FornecedoresRequest(row.D01_Nome, row.D01_Cod_Cliente)
+        for index, row in data_frame.iterrows():
+            fornecedorRequest = FornecedoresRequest(
+                descricao=row.D01_Nome, 
+                codigo=row.D01_Cod_Cliente)
             
             fornecedor = {
                 'codigo':fornecedorRequest.codigo,

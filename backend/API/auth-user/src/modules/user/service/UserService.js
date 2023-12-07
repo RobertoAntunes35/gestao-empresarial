@@ -59,7 +59,6 @@ class UserService {
         }
     }
 
-    
     validateAuthUser(user, authUser) {
         if (!authUser || user.id !== authUser.id) {
             throw new AuthException(
@@ -83,13 +82,13 @@ class UserService {
             let authUser = {
                 id: user.id,
                 name: user.name,
-                email: user.email
+                email: user.email,
             }
 
             const acessToken = jwt.sign({ authUser }, secret.API_SECRET, { expiresIn: "1h" })
             return {
                 status: httpStatus.SUCESS,
-                acessToken
+                acessToken,
             }
         } catch (err) {
             return {

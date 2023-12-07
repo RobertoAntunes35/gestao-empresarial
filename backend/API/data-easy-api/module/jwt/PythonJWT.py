@@ -10,34 +10,38 @@ def token_required(f):
         token = None
         
         if("Authorization") in request.headers:
-            token = request.headers["Authorization"].split(" ")[1]
-            if not token:
-                return {
-                    "message": "O token de autenticacao nao foi passado.",
-                    "data":None, 
-                    "error":"Unauthorized"
-                }, 401
-            print(type(token))
-            print(type(os.getenv("SECRET_KEY")))
             try:
-                data = jwt.decode(token, os.getenv["SECRET_KEY"], algorithms="HS256") 
-                print("PASSOU ===========>")
-                authUser = data.decode
-                if authUser is None:
+
+                token = request.headers["Authorization"].split(" ")[1]
+                if not token:
                     return {
-                        "message":"Invalid Authentication token",
+                        "message": "O token de autenticacao nao foi passado.",
                         "data":None, 
-                        "error": "Unauthorized"
+                        "error":"Unauthorized"
                     }, 401
-                if not authUser["active"]:
-                    abort(403)
-            
+                try:
+                    data = jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=["HS256"]) 
+                    authUser = data['authUser']
+                    print("PASSOU ===========>")
+                    print(data['authUser'])
+                    if authUser is None:
+                        return {
+                            "message":"Invalid Authentication token",
+                            "data":None, 
+                            "error": "Unauthorized"
+                        }, 401
+                
+                except Exception as e:
+                    return {
+                        "message":"Somenthing went wrong",
+                        "data":None, 
+                        "error":str(e)
+                    }, 500
             except Exception as e:
                 return {
-                    "message":"Somenthing went wrong",
-                    "data":None, 
+                    "message":"Metodo BEARER não esta implementado corretamente.",
                     "error":str(e)
-                }, 500
+                }
             return f(authUser, *args, **kwargs)
         else:
             return {

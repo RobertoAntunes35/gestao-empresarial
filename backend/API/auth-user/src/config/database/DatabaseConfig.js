@@ -14,7 +14,6 @@ const sequelize = new Sequelize('auth-api', 'postgres', 'mon123', {
     }
 })
 
-
 sequelize
     .authenticate()
     .then(()=> {

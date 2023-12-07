@@ -1,6 +1,7 @@
 from module.fornecedores.repository.FornecedoresRepository import FornecedoresRepository
 from module.fornecedores.controller.FornecedoresController import FornecedoresController
-
+from module.produtos.repository.ProdutosRepository import ProdutosRepository
+from module.produtos.controller.ProdutosController import ProdutosController
 from flask import Flask, jsonify
 from flask_restful import Resource, Api
 
@@ -15,7 +16,6 @@ import json
 load_dotenv()
 
 app = Flask(__name__)
-SECRET_KEY = os.getenv("SECRET_KEY")
 
 @app.route("/")
 def hello():
@@ -23,9 +23,17 @@ def hello():
 
 @app.route("/api/fornecedores")
 @token_required
-def get(self):
-    return jsonify(controllerFornecedor.get_data())
+def get_fornecedores(self):
+    fornecedoresRepository = FornecedoresRepository()
+    fornecedoresController = FornecedoresController(fornecedoresRepository)
+    return jsonify(fornecedoresController.get_data())
 
+@app.route("/api/produtos")
+@token_required
+def get_produtos(self):
+    produtosRepository = ProdutosRepository()
+    produtosController = ProdutosController(produtosRepository)
+    return jsonify(produtosController.get_data())
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

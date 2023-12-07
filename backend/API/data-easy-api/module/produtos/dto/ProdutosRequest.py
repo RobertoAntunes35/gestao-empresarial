@@ -1,18 +1,18 @@
 from typing import NamedTuple
 
-class ProdutoRequest(NamedTuple):
-    codigo_primario: int
-    codigo_referencia: int
-    comissao: float
-    descricao:str
-    tipo: str
-    grupo: str
-    unidade: str
-    valor_custo: float
-    valor_venda: float
-    fornecedorCodigo: int
-    controler: bool
-    ean: str
+class ProdutosRequest(NamedTuple):
+    codigo_primario: int #'D04_cod
+    codigo_referencia: int # Texto139
+    comissao: float #Comissao
+    descricao:str #D04_Descricao
+    tipo: str #D04_Tipo
+    grupo: str #xgrupo
+    unidade: str #D04_UniPro
+    valor_custo: float #D04_Precom
+    valor_venda: float #D04_Precoven
+    fornecedorCodigo: int #Combinação47
+    controle: bool #Controle
+    ean: str #gtin
 
 '''
 private Integer codigo_primario; 
