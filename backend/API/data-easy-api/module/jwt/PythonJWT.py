@@ -45,7 +45,7 @@ def token_required(f):
             return f(authUser, *args, **kwargs)
         else:
             return {
-                "message: ":"Não consta a variavel Authentication no header.",
+                "message: ":"Na o consta a variavel Authentication no header.",
             }
     return decorated
 

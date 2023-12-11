@@ -8,26 +8,23 @@ import br.com.controleestoque.controleestoque.modules.jwt.service.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-
-public class AuthInterception implements HandlerInterceptor{
+public class AuthInterception implements HandlerInterceptor {
 
     private static final String AUTHORIZATION = "Authorization";
-
     @Autowired
     private JwtService jwtService;
 
     @Override
     public boolean preHandle(
-    HttpServletRequest request, 
-    HttpServletResponse response, 
-    Object handler)
-    throws Exception {
-        if(HttpMethod.OPTIONS.name().equals(request.getMethod())) {
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler)
+            throws Exception {
+        if (HttpMethod.OPTIONS.name().equals(request.getMethod())) {
             if (isOption(request))
-            return true;
+                return true;
         }
-        var authorization = request.getHeader(AUTHORIZATION);
+        var authorization = request.getHeader(AUTHORIZATION).split(" ")[1];
         jwtService.validateAuthorization(authorization);
         return true;
     }
@@ -35,5 +32,5 @@ public class AuthInterception implements HandlerInterceptor{
     private boolean isOption(HttpServletRequest request) {
         return HttpMethod.OPTIONS.name().equals(request.getMethod());
     }
-    
+
 }

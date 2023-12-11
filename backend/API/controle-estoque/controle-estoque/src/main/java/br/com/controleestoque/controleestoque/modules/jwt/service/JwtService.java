@@ -34,7 +34,6 @@ public class JwtService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new AuthException("Erro ao processar o token encaminhado.");
-
         }
     }
 

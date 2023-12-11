@@ -1,12 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './src/pages/welcome/Login';
+import Welcome from './src/pages/welcome';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <LoginScreen/>
-    </View>
+    <NavigationContainer style={styles.container}>
+      <StatusBar backgroundColor='#38A69D' barStyle='light-content'/>
+      <Welcome/>
+      <Text>HELLO</Text>
+    </NavigationContainer>
   );
 }
 
