@@ -19,64 +19,38 @@ load_dotenv()
 app = Flask(__name__)
 api = Api(app)
 
-# @app.route("/")
-# def hello():
-#     return "Hello World"
+class InitialPage(Resource):
+    def get(self):
+        return {
+            'Api':'DATA-API',
+            'Status': 'UP',
+            'HttpStatus':'200',
+        }
 
-
-
-# @app.route("/api/fornecedores")
-# @token_required
-# def get_fornecedores(self):
-#     return 
-
-# @app.route("/api/produtos")
-# @token_required
-# def get_produtos(self):
-#     produtosRepository = ProdutosRepository()
-#     produtosController = ProdutosController(produtosRepository)
-#     return jsonify(produtosController.get_data())
-
-
-
-class SendMensageFornecedores(Resource):
-    @token_required
+class AllFornecedores(Resource):
+    # @token_required
     def get(self):
         fornecedoresRepository = FornecedoresRepository()
         fornecedoresController = FornecedoresController(fornecedoresRepository)
-        msg = json.dumps(fornecedoresController.get_data())
-        print(msg)
-        try:
-            connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
-        except pika.exceptions.AMQPConnectionError as exc:
-            print("Failed to connect to RabbitMQ service. Message wont be sent.")
-            return
+        # return {
+        #     'id':1,
+        #     'codigo':1,
+        #     'descricao':'ASTEKA'
+        # }
+        return jsonify(fornecedoresController.get_data())
 
-        channel = connection.channel()
-        channel.queue_declare(queue='task_queue', durable=True)
-        channel.basic_publish(
-            exchange='',
-            routing_key='task_queue',
-            body=msg,
-            properties=pika.BasicProperties(
-                delivery_mode=2,  # make message persistent
-            ))
-        
-        connection.close()
-        return " ___ Sent: %s" % msg
+class AllProdutos(Resource):
+    @token_required
+    def get(self):
+        produtosRepository = ProdutosRepository()
+        produtosController = ProdutosController(produtosRepository)
+        return jsonify(produtosController.get_data())
 
 
-api.add_resource(SendMensageFornecedores, '/api/fornecedores/sent-message')
+api.add_resource(InitialPage, '/')
+api.add_resource(AllFornecedores, '/api/fornecedores/all')
+api.add_resource(AllProdutos, '/api/produtos/all')
 
-
-
-# @app.route('/')
-# def index():
-#     return 'OK'
-
-
-# @app.route('/api/sentmenssage/')
-# def add():
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8099)
+    app.run(debug=True, host='0.0.0.0', port=8083)

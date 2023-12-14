@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class FornecedorRequest {
-    private String description;
+    private String descricao;
     private Integer codigo;
+    
 
 }

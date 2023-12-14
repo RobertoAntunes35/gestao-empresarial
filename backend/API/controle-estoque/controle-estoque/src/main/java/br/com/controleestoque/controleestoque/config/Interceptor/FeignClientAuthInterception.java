@@ -19,7 +19,7 @@ public class FeignClientAuthInterception implements RequestInterceptor{
         var currentRequest = getCurrentRequest();
         template.header(AUTHORIZATION, currentRequest.getHeader(AUTHORIZATION));
     }
-
+    
     private HttpServletRequest getCurrentRequest() {
         try {
             return 

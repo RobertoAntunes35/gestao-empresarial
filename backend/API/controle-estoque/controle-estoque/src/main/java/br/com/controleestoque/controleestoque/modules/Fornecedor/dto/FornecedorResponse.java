@@ -16,4 +16,6 @@ public class FornecedorResponse {
         BeanUtils.copyProperties(fornecedor, response);
         return response;
     }
+
+
 }
