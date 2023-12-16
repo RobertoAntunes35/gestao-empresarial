@@ -37,15 +37,17 @@ public class FornecedorController {
             fornecedorService.saveData(responseEntity.getBody());
             return responseEntity.getBody();        
     }
-
+    
     @GetMapping("/descricao/{descricao}")
     public List<FornecedorResponse> findByDescription (@PathVariable String descricao) {
         return fornecedorService.findByDescricao(descricao);
     }
+
     @GetMapping("{id}")
     public FornecedorResponse findById(@PathVariable Integer id) {
         return fornecedorService.findByIdResponse(id);
     }
+
     @GetMapping("/codigo_fornecedor/{codigo_fornecedor}")
     public FornecedorResponse findByCodigoFornecedorResponse(@PathVariable Integer codigo_fornecedor) {
         return fornecedorService.findByCodigoFornecedorResponse(codigo_fornecedor);

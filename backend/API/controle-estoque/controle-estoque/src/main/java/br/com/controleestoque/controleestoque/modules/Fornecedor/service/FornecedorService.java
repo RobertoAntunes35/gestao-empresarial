@@ -1,25 +1,18 @@
 package br.com.controleestoque.controleestoque.modules.Fornecedor.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import com.rabbitmq.client.RpcClient.Response;
-
 import static org.springframework.util.ObjectUtils.isEmpty;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import br.com.controleestoque.controleestoque.config.Exception.ValidationException;
 import br.com.controleestoque.controleestoque.modules.Fornecedor.dto.FornecedorRequest;
 import br.com.controleestoque.controleestoque.modules.Fornecedor.dto.FornecedorResponse;
 import br.com.controleestoque.controleestoque.modules.Fornecedor.model.FornecedorModel;
 import br.com.controleestoque.controleestoque.modules.Fornecedor.repository.FornecedorRepository;
-
-import java.util.List;
-
-import java.util.stream.Collectors;
 
 @Service
 public class FornecedorService {
@@ -63,22 +56,25 @@ public class FornecedorService {
                 .collect(Collectors.toList());
     }
 
-    // public List<FornecedorResponse> getData() {
-    //     RestTemplate restTemplate = new RestTemplate();
-    //     ResponseEntity<List<FornecedorResponse>> responseEntity = restTemplate.exchange(
-    //         "localhost:8083/api/fornecedores/all", 
-    //         HttpMethod.GET,
-    //         null, 
-    //         new ParameterizedTypeReference <List<FornecedorResponse>>() {}
-    //         );
-    //     List<FornecedorResponse> responses = responseEntity.getBody();
-    //     saveData(responses);
-    //     return responses;
-    //     }
-
     public void saveData(List<FornecedorRequest> resp) {
         for (FornecedorRequest response : resp) {
-            fornecedorRepository.save(FornecedorModel.of(response));
+            FornecedorModel foundFornecedorModel = findByCodigoFornecedor(response.getCodigo());
+            
+            
+            if(!isEmpty(foundFornecedorModel) && validandoFornecedor(response, foundFornecedorModel)) {
+                fornecedorRepository.save(FornecedorModel.of(response));
+            }
+        }
+    }
+
+    private boolean validandoFornecedor(FornecedorRequest fornecedorRequest, FornecedorModel fornecedorModel) {
+        System.out.println(fornecedorRequest.getDescricao());
+        System.out.println(fornecedorModel.getDescricao());
+        if(fornecedorRequest.getDescricao().equals(fornecedorModel.getDescricao())) {
+            return false;
+        }
+        else {
+            return true;
         }
     }
     // public void saveData(List<FornecedorResponse> responses) {

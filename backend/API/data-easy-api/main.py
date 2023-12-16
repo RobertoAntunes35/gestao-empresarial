@@ -28,8 +28,8 @@ class InitialPage(Resource):
         }
 
 class AllFornecedores(Resource):
-    # @token_required
-    def get(self):
+    @token_required
+    def get(self, authUser):
         fornecedoresRepository = FornecedoresRepository()
         fornecedoresController = FornecedoresController(fornecedoresRepository)
         # return {
@@ -41,11 +41,10 @@ class AllFornecedores(Resource):
 
 class AllProdutos(Resource):
     @token_required
-    def get(self):
+    def get(self, authUser):
         produtosRepository = ProdutosRepository()
         produtosController = ProdutosController(produtosRepository)
         return jsonify(produtosController.get_data())
-
 
 api.add_resource(InitialPage, '/')
 api.add_resource(AllFornecedores, '/api/fornecedores/all')
