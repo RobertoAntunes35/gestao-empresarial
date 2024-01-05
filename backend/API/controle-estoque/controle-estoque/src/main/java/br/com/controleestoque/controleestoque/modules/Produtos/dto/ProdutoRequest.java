@@ -4,8 +4,13 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProdutoRequest {
     private Integer codigo_primario; 
     private Integer codigo_referencia; 

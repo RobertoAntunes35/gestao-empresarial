@@ -19,7 +19,7 @@ import br.com.controleestoque.controleestoque.modules.Produtos.dto.ProdutoRespon
 import br.com.controleestoque.controleestoque.modules.Produtos.model.ProdutoModel;
 import br.com.controleestoque.controleestoque.modules.Produtos.repository.ProdutoRepository;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +48,9 @@ public class ProdutoService {
                     .map(ProdutoResponse::of)
                     .collect(Collectors.toList());
     }
+    
+
+    
     public List<ProdutoResponse> findByDescricao(String descricao) {
         confirmDataString(descricao);
         return produtoRepository
@@ -56,6 +59,7 @@ public class ProdutoService {
         .map(ProdutoResponse::of)
         .collect(Collectors.toList());
     }
+    
     public ProdutoResponse findByIdResponse(Integer id) {
         return ProdutoResponse.of(findById(id));
     }
@@ -92,11 +96,11 @@ public class ProdutoService {
             validateProductRequest(req);
             var produto = findById(req.getCodigo_referencia());
 
-            ArrayList<Boolean> produtosValidation = validandoProduto(req, produto);
-            for (int i = 0; i < produtosValidation.size(); i++) {
-                if(produtosValidation.get(i) == true) {
+            ArrayList<ProdutoDTO> produtosValidation = validandoProduto(req, produto);
 
-                }
+            for (ProdutoDTO produtos : produtosValidation) {
+                produtos.getCondicao();
+                produtos.getField();
             }
         }
 
@@ -117,101 +121,138 @@ public class ProdutoService {
         11"valor_custo": 2.0,
         12"valor_venda": 2.6
 */
-        ProdutoDTO produtoDTO = null;
+        // ProdutoDTO produtoDTO = null;
 
-        ProdutoDTODouble produtoDTODouble;
-        ProdutoDTOInteger produtoDTOInteger;
-        ProdutoDTOString produtoDTOString;
-        ProdutoDTOBoolean produtoDTOBoolean;
+        ProdutoDTODouble produtoDTODouble = new ProdutoDTODouble();
+        ProdutoDTOInteger produtoDTOInteger = new ProdutoDTOInteger();
+        ProdutoDTOString produtoDTOString = new ProdutoDTOString();
+        ProdutoDTOBoolean produtoDTOBoolean = new ProdutoDTOBoolean();
         ArrayList<ProdutoDTO> lista_comparador = new ArrayList<>();
 
-        Field field;
 
         if(Integer.compare(produtoRequest.getCodigo_primario(), produtoModel.getCodigo_primario()) == 0) {
             produtoDTOInteger.setCondicao(false);
-            produtoDTOInteger.setField(ProdutoRequest.class.getDeclaredField("codigo_primario"));
+            produtoDTOInteger.setField("codigo_primario");
             lista_comparador.add(produtoDTOInteger);
+        
         } else {
             produtoDTOInteger.setCondicao(true);
-            produtoDTOInteger.setField(ProdutoRequest.class.getDeclaredField("codigo_primario"));
+            produtoDTOInteger.setField("codigo_primario");
             lista_comparador.add(produtoDTOInteger);
         }
 
         if(Integer.compare(produtoRequest.getCodigo_referencia(), produtoModel.getCodigo_referencia()) == 0) {
             produtoDTOInteger.setCondicao(false);
-            produtoDTOInteger.setField(ProdutoRequest.class.getDeclaredField("codigo_referencia"));
+            produtoDTOInteger.setField("codigo_referencia");
             lista_comparador.add(produtoDTOInteger);
         } else {
             produtoDTOInteger.setCondicao(true);
-            produtoDTOInteger.setField(ProdutoRequest.class.getDeclaredField("codigo_referencia"));
+            produtoDTOInteger.setField("codigo_referencia");
             lista_comparador.add(produtoDTOInteger);
         }
 
         if(Double.compare(produtoRequest.getValor_venda(), produtoModel.getValor_venda()) == 0) {
             produtoDTODouble.setCondicao(false);
-            produtoDTODouble.setField(ProdutoRequest.class.getDeclaredField("valor_venda"));
+            produtoDTODouble.setField("valor_venda");
             lista_comparador.add(produtoDTODouble);
         } else {
             produtoDTODouble.setCondicao(true);
-            produtoDTODouble.setField(ProdutoRequest.class.getDeclaredField("valor_venda"));
+            produtoDTODouble.setField("valor_venda");
             lista_comparador.add(produtoDTODouble);
         }
 
         if(Double.compare(produtoRequest.getComissao(), produtoModel.getComissao()) == 0) {
-            lista_comparador.add(false);
+            produtoDTODouble.setCondicao(false);
+            produtoDTODouble.setField("comissao");
+            lista_comparador.add(produtoDTODouble);
         } else {
-            lista_comparador.add(true);
+            produtoDTODouble.setCondicao(true);
+            produtoDTODouble.setField("comissao");
+            lista_comparador.add(produtoDTODouble);
         }
 
         if(Boolean.compare(produtoRequest.getControle(), produtoModel.getControle()) == 0) {
-            lista_comparador.add(false);
+            produtoDTOBoolean.setCondicao(false);
+            produtoDTOBoolean.setField("controle");
+            lista_comparador.add(produtoDTOBoolean);
         } else {
-            lista_comparador.add(true);
+            produtoDTOBoolean.setCondicao(true);
+            produtoDTOBoolean.setField("controle");
+            lista_comparador.add(produtoDTOBoolean);
         }
 
         if(produtoRequest.getDescricao().equals(produtoModel.getDescricao())) {
-            lista_comparador.add(false);
+            produtoDTOString.setCondicao(false);
+            produtoDTOString.setField("descricao");
+            lista_comparador.add(produtoDTOString);
+
         } else {
-            lista_comparador.add(true);
+            produtoDTOString.setCondicao(true);
+            produtoDTOString.setField("descricao");
+            lista_comparador.add(produtoDTOString);
         }
+
+
         if(produtoRequest.getEan().equals(produtoModel.getEan())) {
-            lista_comparador.add(false);
+            produtoDTOString.setCondicao(false);
+            produtoDTOString.setField("ean");
+            lista_comparador.add(produtoDTOString);
         } else {
-            lista_comparador.add(true);
+            produtoDTOString.setCondicao(true);
+            produtoDTOString.setField("ean");
+            lista_comparador.add(produtoDTOString);
         }
 
         if(Integer.compare(produtoRequest.getFornecedorCodigo(), produtoModel.getFornecedor().getCodigo()) == 0) {
-            lista_comparador.add(false);
+            produtoDTOInteger.setCondicao(false);
+            produtoDTOInteger.setField("fornecedor_codigo");
+            lista_comparador.add(produtoDTOInteger);
         } else {
-            lista_comparador.add(true);
+            produtoDTOInteger.setCondicao(true);
+            produtoDTOInteger.setField("fornecedor_codigo");
+            lista_comparador.add(produtoDTOInteger);
         }
 
         if(produtoRequest.getGrupo().equals(produtoModel.getGrupo())) {
-            lista_comparador.add(false);
+            produtoDTOString.setCondicao(false);
+            produtoDTOString.setField("grupo");
+            lista_comparador.add(produtoDTOString);
         } else {
-            lista_comparador.add(true);
+            produtoDTOString.setCondicao(true);
+            produtoDTOString.setField("grupo");
+            lista_comparador.add(produtoDTOString);
         }
 
         if(produtoRequest.getTipo().equals(produtoModel.getTipo())) {
-            lista_comparador.add(false);
+            produtoDTOString.setCondicao(false);
+            produtoDTOString.setField("tipo");
+            lista_comparador.add(produtoDTOString);
         } else {
-            lista_comparador.add(true);
+            produtoDTOString.setCondicao(true);
+            produtoDTOString.setField("tipo");
+            lista_comparador.add(produtoDTOString);
         }
-        
+
         if(produtoRequest.getUnidade().equals(produtoModel.getUnidade())) {
-            lista_comparador.add(false);
+            produtoDTOString.setCondicao(false);
+            produtoDTOString.setField("unidade");
+            lista_comparador.add(produtoDTOString);
         } else {
-            lista_comparador.add(true);
+            produtoDTOString.setCondicao(true);
+            produtoDTOString.setField("unidade");
+            lista_comparador.add(produtoDTOString);
         }
 
         if(Double.compare(produtoRequest.getValor_custo(), produtoModel.getValor_custo()) == 0) {
-            lista_comparador.add(false);
+            produtoDTOString.setCondicao(false);
+            produtoDTOString.setField("valor_custo");
+            lista_comparador.add(produtoDTOString);
         } else {
-            lista_comparador.add(true);
+            produtoDTOString.setCondicao(true);
+            produtoDTOString.setField("valor_custo");
+            lista_comparador.add(produtoDTOString);
         }
-
-        
-
+    
         return lista_comparador;
     }
 

@@ -15,7 +15,9 @@ class UserService {
             console.log(email)
             this.validadeDataEmail(email);
 
+            console.log(`EMAIL ENCONTRATADO ${email}`)
             let user = await UserRepository.findByEmail(email);
+            console.log(`USUARIO ENCONTRADO: ${user}`);
             this.validadeDataUser(user);
             this.validateAuthUser(user, authUser)
 
@@ -61,6 +63,8 @@ class UserService {
 
     validateAuthUser(user, authUser) {
         if (!authUser || user.id !== authUser.id) {
+            console.log(`AUTHUSER: ${authUser}`)
+            console.log(user)
             throw new AuthException(
                 httpStatus.UNAUTHORIZED,
                 'Error to authenticate user'

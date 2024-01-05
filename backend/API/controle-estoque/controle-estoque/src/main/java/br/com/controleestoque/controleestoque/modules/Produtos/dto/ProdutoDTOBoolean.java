@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProdutoDTOBoolean extends ProdutoDTO {
-    private Boolean field;
+    private String field;
 }

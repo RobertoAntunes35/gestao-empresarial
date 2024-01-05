@@ -6,7 +6,9 @@ import User from '../model/UserModel.js'
 class UserReposity {
     async findByEmail(email) {
         try {
-            return await User.findOne({ where: {email}})
+            return await User.findOne({ 
+                where: {email}
+            })
         } catch (err) {
             throw new UserExpection(
                 httpStatus.BAD_REQUEST,

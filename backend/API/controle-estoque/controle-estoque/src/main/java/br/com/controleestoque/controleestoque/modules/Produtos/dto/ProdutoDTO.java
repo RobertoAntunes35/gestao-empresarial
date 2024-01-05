@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProdutoDTO {
-    private Boolean condicao;
+public abstract class ProdutoDTO {
+    private Boolean condicao;   
+    private String field;
 }
 
 

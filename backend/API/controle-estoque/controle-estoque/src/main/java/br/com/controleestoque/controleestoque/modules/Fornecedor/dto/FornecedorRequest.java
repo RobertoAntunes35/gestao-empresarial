@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class FornecedorRequest {
-    private String descricao;
     private Integer codigo;
-    
-
+    private String descricao;
 }

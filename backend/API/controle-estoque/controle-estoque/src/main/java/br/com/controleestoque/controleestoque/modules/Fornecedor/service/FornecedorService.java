@@ -59,8 +59,7 @@ public class FornecedorService {
     public void saveData(List<FornecedorRequest> resp) {
         for (FornecedorRequest response : resp) {
             FornecedorModel foundFornecedorModel = findByCodigoFornecedor(response.getCodigo());
-            
-            
+
             if(!isEmpty(foundFornecedorModel) && validandoFornecedor(response, foundFornecedorModel)) {
                 fornecedorRepository.save(FornecedorModel.of(response));
             }
@@ -77,10 +76,4 @@ public class FornecedorService {
             return true;
         }
     }
-    // public void saveData(List<FornecedorResponse> responses) {
-    //     for(FornecedorResponse response : responses) {
-    //         System.out.println(response.getDescricao());
-    //         System.out.println(response.getCodigo());
-    //     }
-    // }
 }
